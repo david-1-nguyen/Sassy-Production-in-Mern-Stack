@@ -19,7 +19,7 @@ mongoose.connect(MONGO_DB, { useNewUrlParser: true })
     .then(
         () => {
             console.log('MongoDB connected')
-            return server.listen({ port: 3000 })
+            return server.listen({ port: 5000 })
         }
     )
     .then(
