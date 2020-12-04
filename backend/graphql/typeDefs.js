@@ -6,6 +6,7 @@ module.exports = gql`
         title: String
         price: Float
         description: String
+        category: String
         date: String
     }
 
@@ -37,6 +38,7 @@ module.exports = gql`
         title: String
         price: Float
         description: String
+        category: String
     }
 
     type Query {

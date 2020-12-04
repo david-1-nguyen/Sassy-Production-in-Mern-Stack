@@ -20,7 +20,7 @@ module.exports = {
         }
     },
     Mutation: {
-        async addService(_, {serviceInput: {title, price, description}}, context) {
+        async addService(_, {serviceInput: {title, price, description, category}}, context) {
             const user = checkAuth(context)
             const databaseUser = await User.findById(user.id)
 
@@ -37,6 +37,7 @@ module.exports = {
                     price,
                     description,
                     date: new Date().toISOString(),
+                    category,
                     user: user.id
                 })
                 return await service.save()

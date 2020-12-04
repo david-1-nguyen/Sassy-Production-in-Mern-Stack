@@ -5,12 +5,7 @@ const serviceSchema = new Schema({
     price: Number,
     description: String,
     date: String,
-    comments: [
-        {
-            body: String,
-            username: String
-        }
-    ],
+    category: String,
     user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
