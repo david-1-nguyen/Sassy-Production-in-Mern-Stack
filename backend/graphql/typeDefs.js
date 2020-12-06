@@ -24,6 +24,7 @@ module.exports = gql`
         username: String
         createdAt: String
         admin: Boolean
+        bookingsHistory : [AppointmentBooking]!
     }
 
 

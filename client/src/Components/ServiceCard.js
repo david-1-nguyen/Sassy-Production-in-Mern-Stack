@@ -7,7 +7,6 @@ function ServiceCard(props) {
 
     return (
         <Container centered row>
-            <ServicesMenuBar/>
         </Container>
 )
 }

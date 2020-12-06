@@ -1,7 +1,6 @@
 const Appointment = require('../models/AppointmentBooking')
 const Services = require('../models/Services')
 const checkAuth = require('../../utils/checkAuth')
-
 const User = require('../models/User')
 
 module.exports = {
@@ -28,16 +27,23 @@ module.exports = {
                     user: user.id
                 })
                 await createdAppointment.save()
+                await User.findOneAndUpdate({
+                        _id: user.id
+                    },
+                    {
+                        $push: {
+                            bookingsHistory: createdAppointment
+                        }
+                    })
                 context.pubsub.publish('NEW_BOOKING', {
                     newBookings: createdAppointment
                 })
                 return createdAppointment
-            }
-            catch (err) {
+            } catch (err) {
                 throw new Error(err)
             }
         },
-        async deleteAppointmentBooking(_, {appointmentID}, context ) {
+        async deleteAppointmentBooking(_, {appointmentID}, context) {
             checkAuth(context)
             try {
                 return await Appointment.findByIdAndDelete(appointmentID)
@@ -47,17 +53,16 @@ module.exports = {
         }
     },
     Subscription: {
-      newBookings: {
-          subscribe: (_, __, {pubsub}) => pubsub.asyncIterator('NEW_BOOKING')
-      }
+        newBookings: {
+            subscribe: (_, __, {pubsub}) => pubsub.asyncIterator('NEW_BOOKING')
+        }
     },
     AppointmentBooking: {
         serviceType: async (parent) => {
             const serviceID = parent.serviceType
             try {
                 return await Services.findById(serviceID)
-            }
-            catch (err) {
+            } catch (err) {
                 throw new Error(err)
             }
         },
@@ -65,8 +70,7 @@ module.exports = {
             const user = checkAuth(context)
             try {
                 return await User.findById(user.id)
-            }
-            catch (err) {
+            } catch (err) {
                 throw new Error(err)
             }
         }
