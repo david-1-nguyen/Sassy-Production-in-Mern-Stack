@@ -3,6 +3,7 @@ import {useQuery} from "@apollo/client";
 import gql from 'graphql-tag'
 import {Grid} from "semantic-ui-react";
 import ServiceCard from "../Components/ServiceCard";
+
 function Services() {
     const {loading, data: {
         getServices: services} = {} } = useQuery(FETCH_SERVICES_QUERY)
