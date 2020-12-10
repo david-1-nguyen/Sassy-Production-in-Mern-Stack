@@ -25,6 +25,7 @@ module.exports = gql`
         createdAt: String
         admin: Boolean
         bookingsHistory : [AppointmentBooking]!
+        phonenumber: String
     }
 
 
@@ -33,6 +34,7 @@ module.exports = gql`
         password: String
         confirmPassword: String
         email: String
+        phonenumber: String
     }
 
     input ServiceInput {

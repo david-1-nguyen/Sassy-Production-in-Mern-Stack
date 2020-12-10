@@ -53,7 +53,7 @@ module.exports = {
 
 
         },
-        async register(_, { registerInput: {username, email, password, confirmPassword}}) {
+        async register(_, { registerInput: {username, email, password, confirmPassword, phonenumber}}) {
             const user = await User.findOne({ username })
             if(user) {
                 throw new UserInputError('Username is taken', {
@@ -78,6 +78,7 @@ module.exports = {
                 password,
                 createdAt: new Date().toISOString(),
                 admin: false,
+                phonenumber: phonenumber,
             })
 
             const res = await newUser.save()

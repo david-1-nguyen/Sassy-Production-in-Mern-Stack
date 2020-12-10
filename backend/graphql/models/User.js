@@ -12,7 +12,8 @@ const userSchema = new Schema({
             serviceType: Schema.Types.ObjectId,
             creator: Schema.Types.ObjectId,
         }
-    ]
+    ],
+    phonenumber: String,
 })
 
 module.exports = model('user', userSchema)
