@@ -1,5 +1,5 @@
 # Sassy-Production-in-Mern-Stack
-Rewriting sassynailsoakland.com in the mern stack. Using ReactJS for frontend development. Backend handled by apollo server, mongoose for database communication with MongoDB, and JS.
+Rewriting sassynailsoakland.com in the mern stack. Using ReactJS for frontend development. Backend handled by apollo server, mongoose for database communication with MongoDB.
 
 
 Features to be ported over:
