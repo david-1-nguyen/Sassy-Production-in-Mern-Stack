@@ -5,6 +5,8 @@ Rewriting sassynailsoakland.com in the mern stack. Using ReactJS for frontend de
 Features to be ported over:
   1. Appointment booking queue
   2. Photo Gallery
+  
+ 
 New features to be added:
   1. Admins add services
   2. Admins can confirm or delete appointments
