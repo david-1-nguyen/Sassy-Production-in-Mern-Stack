@@ -5,6 +5,11 @@ import {Grid, Item, Menu} from "semantic-ui-react";
 
 import ServiceItem from "../Components/ServiceItem";
 
+/*
+* Since we have relatively small amount of services, fetch all services and
+* dynamically render service items based on changes on the selections we made
+* in small service menu
+* */
 function Services() {
 
     const {loading, data: {getServices: services} = {}} =
