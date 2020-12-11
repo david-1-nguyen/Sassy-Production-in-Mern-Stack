@@ -47,6 +47,7 @@ module.exports = gql`
     type Query {
         getUsers: [User]!
         getServices: [Services]!
+        getServiceCategory(category: String!): [Services]!
         getAService(serviceID: ID!): Services
         getAppointmentBookings: [AppointmentBooking]!
     }
