@@ -22,7 +22,7 @@ function Login(props) {
             props.history.push('/')
         },
         onError(err) {
-            setErrors(err.graphQLErrors[0].extensions.exception.errors)
+            setErrors(err.graphQLErrors[0].extensions.exceptions.errors)
         },
         variables: values
     })
@@ -70,7 +70,7 @@ function Login(props) {
 }
 
 const LOGIN_USER = gql`
-    mutation register(
+    mutation login(
         $username: String!
         $password: String!
     ) {

@@ -50,6 +50,7 @@ module.exports = gql`
         getServiceCategory(category: String!): [Services]!
         getAService(serviceID: ID!): Services
         getAppointmentBookings: [AppointmentBooking]!
+        getUserBookingsHistory(username: String!): [AppointmentBooking]!
     }
 
     type Mutation {

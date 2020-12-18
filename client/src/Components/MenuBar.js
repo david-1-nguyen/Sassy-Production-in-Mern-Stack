@@ -15,12 +15,13 @@ function MenuBar() {
 
     const handleItemClick = (e, {name}) => setActiveItem(name)
 
-    return (user || localStorage.getItem("jwtToken"))  ? (
+    // || localStorage.getItem("jwtToken")
+    return (user)  ? (
 
         (
             <Menu size='massive' color='teal'>
                 <Menu.Item
-                    name='home'
+                    name={user.username}
                     active={activeItem === 'home'}
                     onClick={handleItemClick}
                     as={Link}
