@@ -15,6 +15,7 @@ module.exports = gql`
         createdAt: String
         serviceType: Services
         creator: User
+        confirmed: Boolean
     }
 
     type User {

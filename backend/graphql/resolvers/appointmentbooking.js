@@ -24,7 +24,8 @@ module.exports = {
                 const createdAppointment = new Appointment({
                     createdAt: new Date().toISOString(),
                     serviceType: service,
-                    user: user.id
+                    user: user.id,
+                    confirmed: false,
                 })
                 await createdAppointment.save()
                 await User.findOneAndUpdate({

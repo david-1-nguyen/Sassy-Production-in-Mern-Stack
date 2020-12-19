@@ -10,9 +10,9 @@ function Appointment() {
 
     const {user} = useContext(AuthContext)
     const {loading, data: {getUserBookingsHistory: bookings} = {}} =
-        useQuery(FETCH_USER_APP_BOOKINGS, {variables: {username: user.username}})
+        useQuery(FETCH_USER_APP_BOOKINGS, {variables: {username: user ? user.username : null}})
 
-    return (
+    return user ? (
         <div>
             <h1>
                 Appointment Page
@@ -32,6 +32,15 @@ function Appointment() {
                     )
                 }
             </ul>
+        </div>
+    ) : (
+        <div>
+            <h1>
+                Appointment Page
+            </h1>
+            <h1>
+                Login to see your bookings and make a booking!
+            </h1>
         </div>
     )
 }

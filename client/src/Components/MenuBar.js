@@ -15,7 +15,6 @@ function MenuBar() {
 
     const handleItemClick = (e, {name}) => setActiveItem(name)
 
-    // || localStorage.getItem("jwtToken")
     return (user)  ? (
 
         (
