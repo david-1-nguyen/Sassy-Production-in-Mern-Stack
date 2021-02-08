@@ -3,9 +3,8 @@ const usersResolvers = require('./users')
 const appointmentbookingResolvers = require('./appointmentbooking')
 
 module.exports = {
-    AppointmentBooking: {
-        serviceType: appointmentbookingResolvers.AppointmentBooking.serviceType,
-        creator: appointmentbookingResolvers.AppointmentBooking.creator,
+    User: {
+        ...usersResolvers.User,
     },
     Query: {
         ...serviceResolvers.Query,

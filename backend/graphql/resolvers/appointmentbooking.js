@@ -1,12 +1,17 @@
 const Appointment = require('../models/AppointmentBooking')
-const Services = require('../models/Services')
 const checkAuth = require('../../utils/checkAuth')
 const User = require('../models/User')
+
+/* Special Datatype: AppointmentBooking
+*   confirmed: Boolean, => is this appointment confirmed by an admin yet?
+    createdAt: String, => Date(isostring) of when appointment was created
+
+    serviceType: String => a string description of what was booked
+    * ,*/
 
 module.exports = {
     Query: {
         async getAppointmentBookings() {
-
             try {
                 return await Appointment.find()
             } catch (err) {
@@ -15,34 +20,40 @@ module.exports = {
         }
     },
     Mutation: {
-        async createAppointmentBooking(_, {serviceID}, context) {
+        /* creates an appointment booking given description
+        * String -> AppointmentBooking
+        * */
+        async createAppointmentBooking(_, {description}, context) {
+
             const user = checkAuth(context)
-            const service = await Services.findById(serviceID)
-            if (service === null)
-                throw new Error(`Service of serviceID: ${serviceID} does not exist`)
-            try {
+            try {//create a new appointment and save
                 const createdAppointment = new Appointment({
                     createdAt: new Date().toISOString(),
-                    serviceType: service,
-                    user: user.id,
+                    serviceType: description,
                     confirmed: false,
                 })
+
                 await createdAppointment.save()
+                //update user's history of appointments
                 await User.findOneAndUpdate({
                         _id: user.id
                     },
                     {
                         $push: {
-                            bookingsHistory: createdAppointment
+                            bookingsHistory: createdAppointment.id
                         }
                     })
-                context.pubsub.publish('NEW_BOOKING', {
+
+                //update subscription for appointment bookings
+                await context.pubsub.publish('NEW_BOOKING', {
                     newBookings: createdAppointment
                 })
+
                 return createdAppointment
             } catch (err) {
                 throw new Error(err)
             }
+
         },
         async deleteAppointmentBooking(_, {appointmentID}, context) {
             checkAuth(context)
@@ -58,23 +69,5 @@ module.exports = {
             subscribe: (_, __, {pubsub}) => pubsub.asyncIterator('NEW_BOOKING')
         }
     },
-    AppointmentBooking: {
-        serviceType: async (parent) => {
-            const serviceID = parent.serviceType
-            try {
-                return await Services.findById(serviceID)
-            } catch (err) {
-                throw new Error(err)
-            }
-        },
-        creator: async (parent, args, context) => {
-            const user = checkAuth(context)
-            try {
-                return await User.findById(user.id)
-            } catch (err) {
-                throw new Error(err)
-            }
-        }
-    }
 
 }

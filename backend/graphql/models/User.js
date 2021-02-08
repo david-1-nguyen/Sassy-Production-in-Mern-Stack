@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const userSchema = new Schema({
     username: String,
@@ -8,12 +8,11 @@ const userSchema = new Schema({
     admin: Boolean,
     bookingsHistory: [
         {
-            createdAt: String,
-            serviceType: Schema.Types.ObjectId,
-            creator: Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
+            ref: 'appointments'
         }
     ],
     phonenumber: String,
 })
 
-module.exports = model('user', userSchema)
+module.exports = model('users', userSchema)

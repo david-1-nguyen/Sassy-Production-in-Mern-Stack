@@ -4,12 +4,9 @@ const serviceSchema = new Schema({
     title: String,
     price: Number,
     description: String,
-    date: String,
     category: String,
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-    }
+    date: String,
+
 })
 
 module.exports = model('services', serviceSchema)

@@ -3,7 +3,7 @@ Rewriting sassynailsoakland.com in the MERNG stack. Using ReactJS for frontend d
 
 
 Features to be ported over:
-  1. Appointment booking queue
+  1. Appointment booking queue (WIP)
   2. Photo Gallery
   
  
@@ -18,4 +18,4 @@ New features to be added:
 Features completed(for now):
 1. Register page
 2. Display Services page
-3. Login page(WIP)
+3. Login page

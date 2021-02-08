@@ -17,6 +17,7 @@ function Appointment() {
             <h1>
                 Appointment Page
             </h1>
+            <h1> Your past bookings listed here </h1>
             <ul>
                 {
                     loading ? (<h1>Loading...</h1>) : (
@@ -25,13 +26,13 @@ function Appointment() {
                             <Item>
                                 <Item.Content>
                                     <Item.Header as='h3'>{ booking.createdAt }</Item.Header>
-
                                 </Item.Content>
                             </Item>
                         ))
                     )
                 }
             </ul>
+            <h1> Make a new booking! </h1>
         </div>
     ) : (
         <div>

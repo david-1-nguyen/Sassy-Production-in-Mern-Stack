@@ -6,6 +6,8 @@ const {UserInputError} = require('apollo-server')
 const User = require('../models/User')
 const {validateRegisterInput, validateLoginInput} = require('../../utils/validators')
 
+const AppointmentBooking = require('../models/AppointmentBooking')
+
 function getToken(user) {
     return jwt.sign({
         id: user.id,
@@ -14,8 +16,37 @@ function getToken(user) {
     }, SECRET_KEY, {expiresIn: '1hr'});
 }
 
+/*
+* Special Datatype: User
+* holds users and contains fields below
+*
+    token: String
+    admin: Boolean
+    username: String
+    email: String
+    phonenumber: String
+    bookingsHistory : [AppointmentBooking] => holds a list of all appointments made by user
+    createdAt: String => when this user was created
+    * */
+
 module.exports = {
+    User: {
+        bookingsHistory: async (parent) => {
+
+            try {
+                console.log(parent)
+                const bookingIds = parent.bookingsHistory
+                return await bookingIds.map( booking => {
+                    return AppointmentBooking.findById(booking)
+                })
+            } catch (err) {
+                throw new Error(err)
+            }
+        },
+    },
     Query: {
+        /* a resolver to return all users in mongodb
+        * NoInput -> Array of Users */
         async getUsers() {
             try {
                 return await User.find()
@@ -23,17 +54,23 @@ module.exports = {
                 throw new Error(err)
             }
         },
+        /* a resolver to return the bookings history of a user given
+        *  a username (String)
+        *  String ->  Array of AppointmentBookings
+        * */
         async getUserBookingsHistory(_, {username}) {
-            const user = await User.findOne({username})
-
-            if (!user) {
+            try {
+                const user = await User.findOne({username})
+                return user.bookingsHistory
+            } catch (err) {
                 throw new UserInputError('User not found')
             }
-
-            return user.bookingsHistory
         }
     },
     Mutation: {
+        /* resolver to login for Users
+        * username(string), password(string) -> User object with id and token
+        * features: checks userinput, checks if user exists, checks if credentials are correct, and checks user token */
         async login(_, {username, password}) {
             const {errors, valid} = validateLoginInput(username, password)
             const user = await User.findOne({username})
@@ -61,6 +98,10 @@ module.exports = {
 
 
         },
+        /* a mutation that creates a new user object in database
+        * username(string), email(string), pass(string), confirmPassword(string), Phone Number(string) ->
+        * user object called register that has all values above with mongodb ID, jwt token
+        * features: user input validation, password encryption, 1 hr jwt token */
         async register(_, {registerInput: {username, email, password, confirmPassword, phonenumber}}) {
             const user = await User.findOne({username})
             if (user) {
@@ -81,9 +122,9 @@ module.exports = {
 
 
             const newUser = new User({
-                email,
-                username,
-                password,
+                email: email,
+                username: username,
+                password: password,
                 createdAt: new Date().toISOString(),
                 admin: false,
                 phonenumber: phonenumber,
