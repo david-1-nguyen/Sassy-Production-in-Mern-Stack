@@ -19,3 +19,7 @@ Features completed(for now):
 1. Register page
 2. Display Services page
 3. Login page
+
+Notes: 
+User models contains references to appointmentbooking ids.
+Appointmentbooking ids and Services don't contain any references to their creators anymore. 
