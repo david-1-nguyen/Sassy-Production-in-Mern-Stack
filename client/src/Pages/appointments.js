@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import gql from 'graphql-tag'
 import { useQuery } from "@apollo/client";
 import { AuthContext } from "../context/auth";
-import {Grid, Item, Menu} from "semantic-ui-react";
+import { Item } from "semantic-ui-react";
 
 
 
@@ -55,11 +55,8 @@ const FETCH_USER_APP_BOOKINGS =
             {
                 id
                 createdAt
-                serviceType {
-                    title
-                    price
-                    category
-                }
+                confirmed
+                serviceType
             }
         }
     `
