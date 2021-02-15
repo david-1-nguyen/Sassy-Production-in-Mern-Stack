@@ -1,9 +1,9 @@
-import React, {useContext} from 'react'
-
+import React from 'react'
 
 function Home() {
+
     return (
-        <div>
+        <div className='form-container'>
             <h1>
                 Home Page
             </h1>

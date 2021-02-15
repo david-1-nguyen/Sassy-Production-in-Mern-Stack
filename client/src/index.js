@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from "@apollo/client";
 import {setContext} from "@apollo/client/link/context";
 
-const httpLink = createHttpLink({uri: "http://localhost:5000/"})
+const httpLink = createHttpLink({
+    uri: "http://localhost:5000/"
+})
 
 const authLink = setContext(() => {
     const token = localStorage.getItem("jwtToken")
@@ -23,11 +25,9 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-    <React.StrictMode>
         <ApolloProvider client={client}>
             <App/>
-        </ApolloProvider>
-    </React.StrictMode>,
+        </ApolloProvider>,
     document.getElementById('root')
 );
 

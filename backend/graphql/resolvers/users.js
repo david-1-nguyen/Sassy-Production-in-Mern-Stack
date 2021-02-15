@@ -65,8 +65,23 @@ module.exports = {
             } catch (err) {
                 throw new UserInputError('User not found')
             }
+        },
+        /* a resolver to return a user object given username
+        *  a username (String)
+        *  String ->  User
+        * */
+        async getAUser(_, {username}) {
+            try {
+                console.log("inside get a user")
+                const user =  await User.findOne({username})
+                console.log(user)
+                return user
+            } catch (err) {
+                throw new UserInputError('User not found')
+            }
         }
-    },
+    }
+    ,
     Mutation: {
         /* resolver to login for Users
         * username(string), password(string) -> User object with id and token

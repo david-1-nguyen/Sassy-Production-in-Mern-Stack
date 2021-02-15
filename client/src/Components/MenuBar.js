@@ -21,7 +21,7 @@ function MenuBar() {
             <Menu size='massive' color='teal'>
                 <Menu.Item
                     name={user.username}
-                    active={activeItem === 'home'}
+                    active={activeItem === 'user.username'}
                     onClick={handleItemClick}
                     as={Link}
                     to='/'
@@ -40,12 +40,18 @@ function MenuBar() {
                     as={Link}
                     to='/bookings'
                 />
+                <Menu.Item
+                    name='profile'
+                    active={activeItem === 'profile'}
+                    onClick={handleItemClick}
+                    as={Link}
+                    to='/profile'
+                />
                 <Menu.Menu position='right'>
                     <Menu.Item
                         name='logout'
                         active={activeItem === 'logout'}
-                        onClick={logout
-                        }
+                        onClick={logout}
                     />
                 </Menu.Menu>
             </Menu>
