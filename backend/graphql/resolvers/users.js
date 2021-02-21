@@ -16,6 +16,7 @@ function getToken(user) {
         username: user.username
     }, SECRET_KEY, {expiresIn: '1hr'});
 }
+
 /*
 * Special Datatype: User
 * holds users and contains fields below
@@ -38,7 +39,7 @@ module.exports = {
                 const ids = parent.bookingsHistory
                 return await AppointmentBooking.find({
                     '_id': {
-                        $in : ids
+                        $in: ids
                     }
                 })
             } catch (err) {
@@ -67,7 +68,7 @@ module.exports = {
                 const ids = user.bookingsHistory
                 return await AppointmentBooking.find({
                     '_id': {
-                        $in : ids
+                        $in: ids
                     }
                 })
             } catch (err) {
@@ -81,7 +82,7 @@ module.exports = {
         async getAUser(_, {username}) {
             try {
                 console.log("inside get a user")
-                const user =  await User.findOne({username})
+                const user = await User.findOne({username})
                 console.log(user)
                 return user
             } catch (err) {

@@ -5,7 +5,6 @@ const User = require('../models/User')
 /* Special Datatype: AppointmentBooking
 *   confirmed: Boolean, => is this appointment confirmed by an admin yet?
     createdAt: String, => Date(isostring) of when appointment was created
-
     serviceType: String => a string description of what was booked
     * ,*/
 

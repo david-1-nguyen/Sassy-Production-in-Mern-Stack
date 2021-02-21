@@ -17,7 +17,7 @@ New features to be added:
 
 Features completed(for now):
 1. Register page
-2. Display Services page
+2. Display Services page (Skeleton) 
 3. Login page
 
 Notes: 

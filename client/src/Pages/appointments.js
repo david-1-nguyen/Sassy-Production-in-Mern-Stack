@@ -1,18 +1,35 @@
 import React, {useContext} from 'react'
 import gql from 'graphql-tag'
-import { useQuery } from "@apollo/client";
-import { AuthContext } from "../context/auth";
-import { Item } from "semantic-ui-react";
+import {useQuery, useMutation} from "@apollo/client";
+import {AuthContext} from "../context/auth";
+import {Button, Form, Item} from "semantic-ui-react";
+import {useForm} from "../util/hooks";
 
 
-
-function Appointment() {
+function Appointment(props) {
 
     const {user} = useContext(AuthContext)
-    const {loading, data: {getUserBookingsHistory: bookings} = {}} =
+
+    const initialState = {
+        description: ''
+    }
+
+    const {onChange, onSubmit, values} = useForm(createAppointmentCallback, initialState)
+
+    const {loading_bookings, data: {getUserBookingsHistory: bookings} = {}} =
         useQuery(FETCH_USER_APP_BOOKINGS, {variables: {username: user ? user.username : null}})
 
-    console.log(bookings)
+    const [sendAppointMutation, {loading_create}] = useMutation(MAKE_APP_BOOKING, {
+        update(_) {
+            props.history.push('/success')
+        },
+        variables: values
+    })
+
+
+    function createAppointmentCallback() {
+        sendAppointMutation()
+    }
 
     return user ? (
         <div>
@@ -22,19 +39,35 @@ function Appointment() {
             <h1> Your past bookings listed here </h1>
             <ul>
                 {
-                    loading ? (<h1>Loading...</h1>) : (
+                    loading_bookings ? (<h1>Loading...</h1>) : (
                         bookings &&
                         bookings.map(booking => (
-                            <Item>
-                                <Item.Content key={user}>
-                                    <Item.Header as='h3'>{ booking.serviceType }</Item.Header>
-                                </Item.Content>
-                            </Item>
+                            <li>
+                                <Item>
+                                    <Item.Content key={user}>
+                                        <Item.Header as='h3'>{booking.createdAt}</Item.Header>
+                                        <Item.Header as='h3'>{booking.serviceType}</Item.Header>
+                                        <Item.Header as='h3'>{booking.confirmed}</Item.Header>
+                                    </Item.Content>
+                                </Item>
+                            </li>
                         ))
                     )
                 }
             </ul>
-            <h1> Make a new booking! </h1>
+            <Form onSubmit={onSubmit} noValidate className={loading_create ? 'loading' : ''}>
+                <h1> Make a new booking! </h1>
+                <Form.Input
+                    label='description'
+                    placeholder='description...'
+                    name='description'
+                    value={values.description}
+                    onChange={onChange}
+                />
+                <Button type='submit' primary>
+                    Create Appointment Booking!
+                </Button>
+            </Form>
         </div>
     ) : (
         <div>
@@ -50,16 +83,29 @@ function Appointment() {
 
 
 const FETCH_USER_APP_BOOKINGS =
-    gql`
-        query getUserBookingsHistory($username: String!)
+gql`
+    query getUserBookingsHistory($username: String!)
+    {
+        getUserBookingsHistory(username: $username)
         {
-            getUserBookingsHistory(username: $username)
-            {
-                createdAt
-                confirmed
-                serviceType
-            }
+            createdAt
+            confirmed
+            serviceType
         }
-    `
+    }
+`
 
+const MAKE_APP_BOOKING =
+gql`
+    mutation createAppointmentBooking($description : String!)
+    {
+        createAppointmentBooking(description: $description)
+        {
+            id
+            createdAt
+            confirmed
+            serviceType
+        }
+    }
+`
 export default Appointment
