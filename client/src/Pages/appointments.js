@@ -12,6 +12,8 @@ function Appointment() {
     const {loading, data: {getUserBookingsHistory: bookings} = {}} =
         useQuery(FETCH_USER_APP_BOOKINGS, {variables: {username: user ? user.username : null}})
 
+    console.log(bookings)
+
     return user ? (
         <div>
             <h1>
@@ -24,8 +26,8 @@ function Appointment() {
                         bookings &&
                         bookings.map(booking => (
                             <Item>
-                                <Item.Content>
-                                    <Item.Header as='h3'>{ booking.createdAt }</Item.Header>
+                                <Item.Content key={user}>
+                                    <Item.Header as='h3'>{ booking.serviceType }</Item.Header>
                                 </Item.Content>
                             </Item>
                         ))
@@ -53,7 +55,6 @@ const FETCH_USER_APP_BOOKINGS =
         {
             getUserBookingsHistory(username: $username)
             {
-                id
                 createdAt
                 confirmed
                 serviceType

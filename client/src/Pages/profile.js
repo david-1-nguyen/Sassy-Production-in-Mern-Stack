@@ -11,8 +11,7 @@ function Profile() {
             variables : (context.user ? {username: context.user.username} : {})
         })
 
-    // if(data)
-    //     console.log(data.getAUser.username)
+
 
     return (
         <div className='form-container'>

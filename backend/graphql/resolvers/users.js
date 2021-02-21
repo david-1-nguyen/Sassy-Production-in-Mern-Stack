@@ -7,6 +7,7 @@ const User = require('../models/User')
 const {validateRegisterInput, validateLoginInput} = require('../../utils/validators')
 
 const AppointmentBooking = require('../models/AppointmentBooking')
+const checkAuth = require('../../utils/checkAuth')
 
 function getToken(user) {
     return jwt.sign({
@@ -15,7 +16,6 @@ function getToken(user) {
         username: user.username
     }, SECRET_KEY, {expiresIn: '1hr'});
 }
-
 /*
 * Special Datatype: User
 * holds users and contains fields below
@@ -34,10 +34,12 @@ module.exports = {
         bookingsHistory: async (parent) => {
 
             try {
-                console.log(parent)
-                const bookingIds = parent.bookingsHistory
-                return await bookingIds.map( booking => {
-                    return AppointmentBooking.findById(booking)
+
+                const ids = parent.bookingsHistory
+                return await AppointmentBooking.find({
+                    '_id': {
+                        $in : ids
+                    }
                 })
             } catch (err) {
                 throw new Error(err)
@@ -61,9 +63,15 @@ module.exports = {
         async getUserBookingsHistory(_, {username}) {
             try {
                 const user = await User.findOne({username})
-                return user.bookingsHistory
+
+                const ids = user.bookingsHistory
+                return await AppointmentBooking.find({
+                    '_id': {
+                        $in : ids
+                    }
+                })
             } catch (err) {
-                throw new UserInputError('User not found')
+                throw new Error(err)
             }
         },
         /* a resolver to return a user object given username

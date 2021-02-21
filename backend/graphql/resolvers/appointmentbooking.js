@@ -69,5 +69,8 @@ module.exports = {
             subscribe: (_, __, {pubsub}) => pubsub.asyncIterator('NEW_BOOKING')
         }
     },
+    AppointmentBooking : {
+
+    }
 
 }
