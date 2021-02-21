@@ -14,6 +14,7 @@ import Profile from "./Pages/profile";
 import {AuthProvider} from "./context/auth";
 import AuthRoute from "./util/AuthRoute";
 import ProtectRoute from "./util/ProtectRoute";
+import Success from "./Pages/success";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                     <AuthRoute exact path='/login' component={Login}/>
                     <AuthRoute exact path='/register' component={Register}/>
                     <ProtectRoute exact path='/profile' component={Profile}/>
+                    <ProtectRoute exact path='/success' component={Success}/>
                 </Container>
             </Router>
         </AuthProvider>

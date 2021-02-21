@@ -36,6 +36,19 @@ function Appointment(props) {
             <h1>
                 Appointment Page
             </h1>
+            <Form onSubmit={onSubmit} noValidate className={loading_create ? 'loading' : ''}>
+                <h1> Make a new booking! </h1>
+                <Form.Input
+                    label='description'
+                    placeholder='description...'
+                    name='description'
+                    value={values.description}
+                    onChange={onChange}
+                />
+                <Button type='submit' primary>
+                    Create Appointment Booking!
+                </Button>
+            </Form>
             <h1> Your past bookings listed here </h1>
             <ul>
                 {
@@ -55,19 +68,6 @@ function Appointment(props) {
                     )
                 }
             </ul>
-            <Form onSubmit={onSubmit} noValidate className={loading_create ? 'loading' : ''}>
-                <h1> Make a new booking! </h1>
-                <Form.Input
-                    label='description'
-                    placeholder='description...'
-                    name='description'
-                    value={values.description}
-                    onChange={onChange}
-                />
-                <Button type='submit' primary>
-                    Create Appointment Booking!
-                </Button>
-            </Form>
         </div>
     ) : (
         <div>
