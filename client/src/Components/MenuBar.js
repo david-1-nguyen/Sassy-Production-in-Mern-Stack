@@ -2,9 +2,9 @@ import React, {useContext, useState} from 'react'
 import {Menu} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 import {AuthContext} from "../context/auth";
+import {useViewport} from "../context/mobile";
 
 function MenuBar() {
-
 
     const { user, logout } = useContext(AuthContext)
 
@@ -14,6 +14,9 @@ function MenuBar() {
     const [activeItem, setActiveItem] = useState(path)
 
     const handleItemClick = (e, {name}) => setActiveItem(name)
+
+    const size = useViewport()
+    console.log(size)
 
     return (user)  ? (
 

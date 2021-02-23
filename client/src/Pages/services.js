@@ -29,7 +29,7 @@ function Services() {
                     <p>Services subject to change</p>
                 </div>
             </div>
-            <div class="form-container">
+            <div className="form-container">
                 <Grid>
                     <Grid.Column width={4}>
                         <Menu secondary vertical>
