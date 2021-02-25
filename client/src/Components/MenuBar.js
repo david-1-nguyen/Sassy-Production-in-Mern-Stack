@@ -21,7 +21,7 @@ function MenuBar() {
     return (user)  ? (
 
         (
-            <Menu size='massive' color='teal'>
+            <Menu size='massive' color='teal' stackable>
                 <Menu.Item
                     name={user.username}
                     active={activeItem === 'user.username'}
@@ -60,7 +60,7 @@ function MenuBar() {
             </Menu>
         )
     ) : (
-        <Menu size='massive' color='teal'>
+        <Menu size='massive' color='teal' stackable>
             <Menu.Item
                 name='home'
                 active={activeItem === 'home'}
