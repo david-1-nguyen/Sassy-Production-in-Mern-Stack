@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import gql from 'graphql-tag'
 import {useQuery, useMutation} from "@apollo/client";
 import {AuthContext} from "../context/auth";
-import {Button, Form, Item} from "semantic-ui-react";
+import {Button, Dimmer, Form, Item, Loader} from "semantic-ui-react";
 import {useForm} from "../util/hooks";
 
 
@@ -50,12 +50,15 @@ function AuthAppointment(props) {
                 <h1> Your past bookings listed here </h1>
                 <ul>
                     {
-                        loading_bookings ? (<h1>Loading...</h1>) : (
+                        loading_bookings ? (
+                            <Dimmer active>
+                                <Loader/>
+                            </Dimmer>) : (
                             bookings &&
-                            bookings.map(booking => (
-                                <li>
+                            bookings.map((booking, index) => (
+                                <li key={index}>
                                     <Item>
-                                        <Item.Content key={user}>
+                                        <Item.Content>
                                             <Item.Header as='h3'>{booking.createdAt}</Item.Header>
                                             <Item.Header as='h3'>{booking.serviceType}</Item.Header>
                                             <Item.Header as='h3'>{booking.confirmed}</Item.Header>
