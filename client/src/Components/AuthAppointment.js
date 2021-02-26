@@ -6,7 +6,7 @@ import {Button, Dimmer, Form, Item, Loader} from "semantic-ui-react";
 import {useForm} from "../util/hooks";
 
 
-function AuthAppointment(props) {
+function AuthAppointment({props}) {
 
     const {user} = useContext(AuthContext)
 

@@ -4,14 +4,13 @@ import Banner from "../Components/Banner";
 import AuthAppointment from "../Components/AuthAppointment";
 
 
-function Appointment() {
+function Appointment(props) {
 
     const {user} = useContext(AuthContext)
-
     return user ? (
         <div>
             <Banner bigheader='View or Make Appointments!' subtext='Appointments need to be confirmed'/>
-            <AuthAppointment/>
+            <AuthAppointment props={props}/>
         </div>
     ) : (
         <div>

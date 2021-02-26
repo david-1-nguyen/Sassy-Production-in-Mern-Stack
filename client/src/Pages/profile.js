@@ -5,7 +5,6 @@ import {AuthContext} from "../context/auth";
 
 function Profile() {
     const context = useContext(AuthContext)
-    console.log(context.user ? {username: context.user.username} : {})
     const { data } =
         useQuery(FIND_USER_INFO, {
             variables : (context.user ? {username: context.user.username} : {})
