@@ -17,8 +17,9 @@ New features to be added:
 
 Features completed(for now):
 1. Register page
-2. Display Services page (Skeleton) 
+2. Display Services page (Completed)
 3. Login page
+4. Profile Page(Skeleton)
 
 Notes: 
 User models contains references to appointmentbooking ids.

@@ -20,6 +20,7 @@ const AuthContext = createContext({
     logout: () => {}
 })
 
+
 function authReducer(state, action) {
 
     switch(action.type) {
