@@ -4,6 +4,7 @@ import {useQuery, useMutation} from "@apollo/client";
 import {AuthContext} from "../context/auth";
 import {Button, Form, Item} from "semantic-ui-react";
 import {useForm} from "../util/hooks";
+import Banner from "../Components/Banner";
 
 
 function Appointment(props) {
@@ -71,12 +72,7 @@ function Appointment(props) {
         </div>
     ) : (
         <div>
-            <h1>
-                Appointment Page
-            </h1>
-            <h1>
-                Login to see your bookings and make a booking!
-            </h1>
+            <Banner bigheader='View or Make Appointments!' subtext='Appointments need to be confirmed'/>
         </div>
     )
 }

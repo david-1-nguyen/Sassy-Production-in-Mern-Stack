@@ -11,8 +11,6 @@ function Profile() {
             variables : (context.user ? {username: context.user.username} : {})
         })
 
-
-
     return (
         <div className='form-container'>
             <h1>
