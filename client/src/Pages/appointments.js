@@ -34,41 +34,41 @@ function Appointment(props) {
 
     return user ? (
         <div>
-            <h1>
-                Appointment Page
-            </h1>
-            <Form onSubmit={onSubmit} noValidate className={loading_create ? 'loading' : ''}>
-                <h1> Make a new booking! </h1>
-                <Form.Input
-                    label='description'
-                    placeholder='description...'
-                    name='description'
-                    value={values.description}
-                    onChange={onChange}
-                />
-                <Button type='submit' primary>
-                    Create Appointment Booking!
-                </Button>
-            </Form>
-            <h1> Your past bookings listed here </h1>
-            <ul>
-                {
-                    loading_bookings ? (<h1>Loading...</h1>) : (
-                        bookings &&
-                        bookings.map(booking => (
-                            <li>
-                                <Item>
-                                    <Item.Content key={user}>
-                                        <Item.Header as='h3'>{booking.createdAt}</Item.Header>
-                                        <Item.Header as='h3'>{booking.serviceType}</Item.Header>
-                                        <Item.Header as='h3'>{booking.confirmed}</Item.Header>
-                                    </Item.Content>
-                                </Item>
-                            </li>
-                        ))
-                    )
-                }
-            </ul>
+            <Banner bigheader='Login to View or Make Appointments!' subtext='Appointments will need to be confirmed'/>
+            <div className='form-container'>
+                <Form onSubmit={onSubmit} noValidate className={loading_create ? 'loading' : ''}>
+                    <h1> Make a new booking! </h1>
+                    <Form.Input
+                        label='description'
+                        placeholder='description...'
+                        name='description'
+                        value={values.description}
+                        onChange={onChange}
+                    />
+                    <Button type='submit' primary>
+                        Create Appointment Booking!
+                    </Button>
+                </Form>
+                <h1> Your past bookings listed here </h1>
+                <ul>
+                    {
+                        loading_bookings ? (<h1>Loading...</h1>) : (
+                            bookings &&
+                            bookings.map(booking => (
+                                <li>
+                                    <Item>
+                                        <Item.Content key={user}>
+                                            <Item.Header as='h3'>{booking.createdAt}</Item.Header>
+                                            <Item.Header as='h3'>{booking.serviceType}</Item.Header>
+                                            <Item.Header as='h3'>{booking.confirmed}</Item.Header>
+                                        </Item.Content>
+                                    </Item>
+                                </li>
+                            ))
+                        )
+                    }
+                </ul>
+            </div>
         </div>
     ) : (
         <div>
