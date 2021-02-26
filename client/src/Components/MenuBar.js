@@ -5,7 +5,6 @@ import DesktopMenuBar from "./DesktopMenuBar";
 
 function MenuBar() {
     const size = useViewport()
-    console.log(size)
 
     if (size.width < 500)
         return <MobileMenuBar/>
