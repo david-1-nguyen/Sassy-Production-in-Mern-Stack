@@ -11,17 +11,16 @@ import Services from "./Pages/services";
 import Appointment from "./Pages/appointments";
 import Profile from "./Pages/profile";
 import {AuthProvider} from "./context/auth";
-import {MobileViewProvider} from "./context/mobile";
 import AuthRoute from "./util/AuthRoute";
 import ProtectRoute from "./util/ProtectRoute";
 import Success from "./Pages/success";
 import Footer from "./Components/Footer";
+import {MobileViewProvider} from "./context/mobile";
 
 function App() {
-
     return (
-        <AuthProvider>
-            <MobileViewProvider>
+        <MobileViewProvider>
+            <AuthProvider>
                 <Router>
                     <MenuBar/>
                     <Route exact path='/' component={Home}/>
@@ -33,8 +32,8 @@ function App() {
                     <ProtectRoute exact path='/success' component={Success}/>
                     <Footer/>
                 </Router>
-            </MobileViewProvider>
-        </AuthProvider>
+            </AuthProvider>
+        </MobileViewProvider>
     )
 }
 
