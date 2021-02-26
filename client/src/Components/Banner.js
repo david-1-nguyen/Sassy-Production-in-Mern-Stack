@@ -1,12 +1,12 @@
 import React from 'react'
 
-function Banner() {
+function Banner({bigheader, subtext}) {
 
     return (
         <div className="hero-image">
             <div className="hero-text">
-                <h1>Offered Services</h1>
-                <p>Services subject to change</p>
+                <h1>{bigheader}</h1>
+                <p>{subtext}</p>
             </div>
         </div>
     )

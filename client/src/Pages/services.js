@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {useQuery} from "@apollo/client";
 import gql from 'graphql-tag'
-import {Item, Menu} from "semantic-ui-react";
+import {Item, Menu, Loader, Dimmer} from "semantic-ui-react";
 
 import ServiceItem from "../Components/ServiceItem";
 import Banner from "../Components/Banner";
@@ -24,7 +24,7 @@ function Services() {
 
     return (
         <div>
-            <Banner/>
+            <Banner bigheader='View our services!' subtext='Prices and Services subject to change'/>
             <div className="form-container ">
                 <div className='menu-center'>
                     <Menu secondary pointing compact>
@@ -46,7 +46,11 @@ function Services() {
                     </Menu>
                 </div>
                 {
-                    loading ? (<h1>Loading...</h1>) : (
+                    loading ? (
+                        <Dimmer active>
+                            <Loader />
+                        </Dimmer>
+                        ) : (
                         services &&
                         services.filter(service => (
                             service.category === activeItem
